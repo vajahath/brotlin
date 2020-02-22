@@ -42,6 +42,7 @@
   "devDependencies": {
     "@types/jest": "^25.1.0",
     "@types/node": "^13.7.4",
+    "@types/update-notifier": "^4.1.0",
     "@types/yeoman-generator": "^3.1.4",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
@@ -62,6 +63,7 @@
     "convert-hrtime": "^3.0.0",
     "globby": "^11.0.0",
     "p-limit": "^2.2.2",
-    "upath": "^1.2.0"
+    "upath": "^1.2.0",
+    "update-notifier": "^4.1.0"
   }
 }

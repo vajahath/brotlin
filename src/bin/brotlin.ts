@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import '../update-notifier';
+
 import program from 'commander';
 import convertHrtime from 'convert-hrtime';
 import { compression } from '../index';

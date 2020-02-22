@@ -27,16 +27,16 @@ Type definitions are bundled with this package.
 cd my-dir
 
 # all files matching * glob pattern
-brotli compress *
+brotlin compress *
 
 # same as above (all files matching *)
-brotli compress
+brotlin compress
 
 # single file
-brotli compress index.html
+brotlin compress index.html
 
 # you've options (--help for more)
-brotli compress style.css --quality 8 # default is 11
+brotlin compress style.css --quality 8 # default is 11
 ```
 
 A new compressed file ending with `.br` will be created for every file feeding in to the CLI.
@@ -46,8 +46,8 @@ You can pass in a relative path or an absolute path or a glob pattern.
 ### `--help` for help
 
 ```bash
-$ brotli --help
-Usage: brotli [options] [command]
+$ brotlin --help
+Usage: brotlin [options] [command]
 
 Options:
   -V, --version              output the version number
@@ -58,11 +58,11 @@ Commands:
                              paths [default:*]
 ```
 
-`--help` for `brotli compress` command:
+`--help` for `brotlin compress` command:
 
 ```bash
-$ brotli compress --help
-Usage: brotli compress [options] [file]
+$ brotlin compress --help
+Usage: brotlin compress [options] [file]
 
 Creates a compressed file in the same location. Argument can be relative/absolute/glob paths [default:*]
 
