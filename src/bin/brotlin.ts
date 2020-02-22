@@ -12,7 +12,7 @@ program.version(version);
 program
   .command('compress [file]')
   .description(
-    'Creates a compressed file in the same location. Argument can be relative/absolute/glob paths [default:*]'
+    'Creates a compressed file in the same location. Argument can be relative/absolute/glob paths [default:*]. Check https://www.npmjs.com/package/brotli to know more about the following options'
   )
   .option(
     '-m, --mode <number>',
@@ -36,15 +36,15 @@ program
   )
   .action(async (file, cmdObj) => {
     const start = process.hrtime();
-    const numberOfFiles = await compression({
-      givenPath: file || '*',
+    const compressedFiles = await compression({
+      path: file || '*',
       parallelJobCount: cmdObj.parallel,
       mode: cmdObj.mode,
       quality: cmdObj.quality,
       windowSize: cmdObj.window
     });
     console.log(
-      `\n[brotlin] Processed ${numberOfFiles} files in ${Math.round(
+      `\n[brotlin] Processed ${compressedFiles.length} files in ${Math.round(
         (convertHrtime(process.hrtime(start)).seconds + Number.EPSILON) * 100
       ) / 100} secs`
     );

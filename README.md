@@ -55,7 +55,9 @@ Options:
 
 Commands:
   compress [options] [file]  Creates a compressed file in the same location. Argument can be relative/absolute/glob
-                             paths [default:*]
+                             paths [default:*]. Check https://www.npmjs.com/package/brotli to know more about the
+                             following options
+
 ```
 
 `--help` for `brotlin compress` command:
@@ -64,23 +66,41 @@ Commands:
 $ brotlin compress --help
 Usage: brotlin compress [options] [file]
 
-Creates a compressed file in the same location. Argument can be relative/absolute/glob paths [default:*]
+Creates a compressed file in the same location. Argument can be relative/absolute/glob paths [default:*]. Check https://www.npmjs.com/package/brotli to know more about the following options
 
 Options:
-  -p, --parallel <count>  Processes <count> number of files in parallel. [default: 1]
   -m, --mode <number>     Brotli compression mode (0 = generic[default], 1 = text, 2 = font (WOFF2))
   -q, --quality <number>  Compression quality [0 - 11]. [default: 11]
   -w, --window <number>   Compression window size [default: 22]
+  -p, --parallel <count>  Processes <count> number of files in parallel. [default: 1, sufficient for most cases]
   -h, --help              output usage information
 ```
 
-### Example
+For knowing more about these options, see [npm/brotli](https://www.npmjs.com/package/brotli).
 
-Few examples
+### One more example
+
+```bash
+# compress all fils in the dist folder
+cd dist # moved to dist
+brotlin compress **/* # compress all files in the directory
+```
 
 ## APIs
 
-API doc
+```ts
+import { compression } from 'brotlin';
+// or
+const { compression } = require('brotlin);
+
+compression({
+  path: '*.html', // required
+  parallelJobCount: 1, // optional
+  mode: 0, // optional
+  quality: 11, // optional
+  windowSize: 22 // optional
+}).then(files => console.log(`Compressed ${files.length} files`));
+```
 
 [![](https://img.shields.io/badge/built%20with-ts--np%203-lightgrey?style=flat-square)](https://github.com/vajahath/generator-ts-np) <!--(TSNP VERSION: 3.2.0)-->
 

@@ -12,9 +12,9 @@ const brCompress = br.compress;
  */
 export async function compression(options: ICompression) {
   // resolve paths
-  const paths = await pathResolver(options.givenPath);
+  const paths = await pathResolver(options.path);
   if (!paths) {
-    throw new Error(`Couldn't resolve path: ${options.givenPath}`);
+    throw new Error(`Couldn't resolve path: ${options.path}`);
   }
 
   const compressor = getCompressor({
@@ -31,11 +31,11 @@ export async function compression(options: ICompression) {
   );
 
   await Promise.all(throttledPromises);
-  return paths.length;
+  return paths;
 }
 
 export type ICompression = IGetCompressor & {
-  givenPath: string;
+  path: string;
   parallelJobCount?: number;
 };
 

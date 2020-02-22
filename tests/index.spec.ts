@@ -16,7 +16,7 @@ describe('Testing compressor', () => {
 
     console.log({ input, op });
 
-    await compression({ givenPath: input });
+    await compression({ path: input });
     expect(existsSync(op)).toBeTruthy();
   });
 });
