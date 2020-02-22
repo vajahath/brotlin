@@ -72,7 +72,7 @@ Options:
   -m, --mode <number>     Brotli compression mode (0 = generic[default], 1 = text, 2 = font (WOFF2))
   -q, --quality <number>  Compression quality [0 - 11]. [default: 11]
   -w, --window <number>   Compression window size [default: 22]
-  -p, --parallel <count>  Processes <count> number of files in parallel. [default: 1, sufficient for most cases]
+  -p, --parallel <count>  Processes <count> number of files in parallel. [default: 1]
   -h, --help              output usage information
 ```
 

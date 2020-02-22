@@ -31,7 +31,7 @@ program
   )
   .option(
     '-p, --parallel <count>',
-    `Processes <count> number of files in parallel. [default: 1, sufficient for most cases]`,
+    `Processes <count> number of files in parallel. [default: 1]`,
     val => +val
   )
   .action(async (file, cmdObj) => {
