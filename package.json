@@ -1,0 +1,67 @@
+{
+  "name": "brotlin",
+  "version": "1.0.0",
+  "description": "A handy CLI/API for Brotli compression",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*",
+    "!dist/**/*.map"
+  ],
+  "bin": {
+    "brotlin": "dist/bin/brotlin.js"
+  },
+  "typings": "dist/index.d.ts",
+  "directories": {
+    "test": "tests",
+    "lib": "dist"
+  },
+  "scripts": {
+    "test": "npm run build && jest --coverage --config jest.config.json",
+    "prepublishOnly": "npm run test",
+    "build": "npm run lint && npm run clean-builds && npm run src-build && npm run tests-build && npm run copy-assets",
+    "src-build": "tsc -p tsconfig.json",
+    "tests-build": "tsc -p tsconfig.spec.json",
+    "rescope": "npm-scope-prefixer -s",
+    "lint": "prettier \"src/**/*\" \"tests/**/*\" -l && eslint \"src/**/*\" \"tests/**/*\"",
+    "copy-assets": "gulp copy-src-assets && gulp copy-tests-assets",
+    "clean-builds": "gulp clean-builds"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vajahath/brotlin.git"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "author": "Vajahath Ahmed <vajuoff.1@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vajahath/brotlin/issues"
+  },
+  "homepage": "https://github.com/vajahath/brotlin#readme",
+  "devDependencies": {
+    "@types/jest": "^25.1.0",
+    "@types/node": "^13.7.4",
+    "@types/yeoman-generator": "^3.1.4",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "@vaju/npm-scope-prefixer": "^1.1.0",
+    "del": "^5.1.0",
+    "eslint": "^6.7.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^6.7.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "brotli": "^1.3.2",
+    "commander": "^4.1.1",
+    "convert-hrtime": "^3.0.0",
+    "globby": "^11.0.0",
+    "p-limit": "^2.2.2",
+    "upath": "^1.2.0"
+  }
+}

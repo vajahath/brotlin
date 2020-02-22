@@ -1,0 +1,4 @@
+{
+  "testMatch": ["**/tests-dist/**/*.spec.js"],
+  "testEnvironment": "node"
+}
