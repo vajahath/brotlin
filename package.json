@@ -31,7 +31,7 @@
     "url": "git+https://github.com/vajahath/brotlin.git"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "author": "Vajahath Ahmed <vajuoff.1@gmail.com>",
   "license": "MIT",

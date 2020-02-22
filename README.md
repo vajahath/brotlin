@@ -6,7 +6,7 @@ A handy CLI/API for [Brotli](https://github.com/google/brotli) compression based
 
 ## Install
 
-Requires Node >=6.
+Requires Node >=8.
 
 From npm,
 
