@@ -3,7 +3,7 @@ name: Build
 on: [push, pull_request]
 
 jobs:
-  Build(modern):
+  Build-modern-node:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
@@ -21,7 +21,7 @@ jobs:
       - run: npm run lint
       - run: npm test
 
-  Build(legacy-node-6):
+  Build-legacy-node-6:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
