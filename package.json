@@ -1,6 +1,6 @@
 {
   "name": "brotlin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A handy CLI/API for Brotli compression",
   "main": "dist/index.js",
   "files": [
