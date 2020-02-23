@@ -4,19 +4,62 @@
  * code getting published. You can also check the typings this way.
  */
 
-import { compression } from '../dist/index';
+import { compression, decompression } from '../dist/index';
 import { join, toUnix } from 'upath';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 
 describe('Testing compressor', () => {
-  test('should compress files', async () => {
+  test('big test file', async () => {
     // .js because, .ts tests will be compiled to .js
-    const input = toUnix(join(__dirname, 'index.spec.js'));
+    const input = toUnix(join(__dirname, 'big-test-file.txt'));
+    const content = readFileSync(input).toString();
+
     const op = input + '.br';
 
-    console.log({ input, op });
+    await compression({ path: input });
+
+    expect(existsSync(op)).toBeTruthy();
+
+    await decompression({ path: op });
+
+    const readContent = readFileSync(input).toString();
+
+    expect(content).toBe(readContent);
+  }, 10000);
+
+  test('small-test-file', async () => {
+    // .js because, .ts tests will be compiled to .js
+    const input = toUnix(join(__dirname, 'small-test-file.txt'));
+    const content = readFileSync(input).toString();
+
+    const op = input + '.br';
 
     await compression({ path: input });
+
     expect(existsSync(op)).toBeTruthy();
-  });
+
+    await decompression({ path: op });
+
+    const readContent = readFileSync(input).toString();
+
+    expect(content).toBe(readContent);
+  }, 10000);
+
+  test.skip('tiny-test-file', async () => {
+    // .js because, .ts tests will be compiled to .js
+    const input = toUnix(join(__dirname, 'tiny-test-file.txt'));
+    const content = readFileSync(input).toString();
+
+    const op = input + '.br';
+
+    await compression({ path: input });
+
+    expect(existsSync(op)).toBeTruthy();
+
+    await decompression({ path: op });
+
+    const readContent = readFileSync(input).toString();
+
+    expect(content).toBe(readContent);
+  }, 10000);
 });

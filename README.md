@@ -35,6 +35,9 @@ brotlin compress
 # single file
 brotlin compress index.html
 
+# decompress
+brotlin decompress index.html.br
+
 # you've options (--help for more)
 brotlin compress style.css --quality 8 # default is 11
 ```
@@ -50,14 +53,18 @@ $ brotlin --help
 Usage: brotlin [options] [command]
 
 Options:
-  -V, --version              output the version number
-  -h, --help                 output usage information
+  -V, --version                output the version number
+  -h, --help                   output usage information
 
 Commands:
-  compress [options] [file]  Creates a compressed file in the same location. Argument can be relative/absolute/glob
-                             paths [default:*]. Check https://www.npmjs.com/package/brotli to know more about the
-                             following options
-
+  compress [options] [file]    Creates a compressed file in the same location. Argument can be
+                               relative/absolute/glob paths [default:*]. Check
+                               https://www.npmjs.com/package/brotli to know more about the
+                               following options
+  decompress [options] [file]  Creates a decompressed file in the same location. Argument can be
+                               relative/absolute/glob paths [default:*]. Check
+                               https://www.npmjs.com/package/brotli to know more about the
+                               following options
 ```
 
 `--help` for `brotlin compress` command:
@@ -78,6 +85,8 @@ Options:
 
 For knowing more about these options, see [npm/brotli](https://www.npmjs.com/package/brotli).
 
+For decompress, see `brotlin decompress --help`
+
 ### One more example
 
 ```bash
@@ -89,9 +98,9 @@ brotlin compress **/* # compress all files in the directory
 ## APIs
 
 ```ts
-import { compression } from 'brotlin';
+import { compression, decompression } from 'brotlin';
 // or
-const { compression } = require('brotlin');
+const { compression, decompression } = require('brotlin');
 
 compression({
   path: '*.html', // required
@@ -100,7 +109,16 @@ compression({
   quality: 11, // optional
   windowSize: 22 // optional
 }).then(files => console.log(`Compressed ${files.length} files`));
+
+decompression({
+  path: '*.html.br', // required
+  parallelJobCount: 1 // optional
+}).then(files => console.log(`Decompressed ${files.length} files`));
 ```
+
+### Having issues with compression?
+
+This module uses the [npm/brotli](https://www.npmjs.com/package/brotli) module. Hence check the reported [issues](https://github.com/foliojs/brotli.js/issues) also.
 
 [![](https://img.shields.io/badge/built%20with-ts--np%203-lightgrey?style=flat-square)](https://github.com/vajahath/generator-ts-np) <!--(TSNP VERSION: 3.2.0)-->
 

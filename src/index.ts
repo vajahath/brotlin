@@ -1,11 +1,40 @@
-import { createReadStream, createWriteStream } from 'fs';
-import { Transform } from 'stream';
+import { readFile as readFileCb, writeFile as writeFileCb } from 'fs';
 import globby from 'globby';
 import pLimit from 'p-limit';
 const br = require('brotli');
 import { toUnix } from 'upath';
 
 const brCompress = br.compress;
+const brDecompress = br.decompress;
+
+/**
+ * Main decompression handler function
+ * @param {object} options
+ */
+export async function decompression(options: IDecompression) {
+  // resolve paths
+  const paths = await pathResolver(options.path);
+  if (!paths) {
+    throw new Error(`Couldn't resolve path: ${options.path}`);
+  }
+
+  const throttle = pLimit(options.parallelJobCount || 1);
+
+  const throttledPromises = paths.map(path =>
+    throttle(() =>
+      decompressor(path).then(outFile => console.log(`created: ${outFile}`))
+    )
+  );
+
+  await Promise.all(throttledPromises);
+  return paths;
+}
+
+export interface IDecompression {
+  path: string;
+  parallelJobCount?: number;
+}
+
 /**
  * Main compression handler function
  * @param {object} options
@@ -63,35 +92,69 @@ function getCompressor({
   quality = 11,
   windowSize = 22
 }: IGetCompressor) {
-  return (filePath: string) => {
-    return new Promise((resolve, reject) => {
-      const OUT_FILE = filePath + '.br';
-      const reader = createReadStream(filePath);
-      const writer = createWriteStream(OUT_FILE);
+  return async (filePath: string) => {
+    const OUT_FILE = filePath + '.br';
+    const content = await readFile(filePath);
 
-      const compressor = new Transform({
-        async transform(chunk, enc, cb) {
-          const compressed = await brCompress(chunk, {
-            mode,
-            quality,
-            lgwin: windowSize
-          });
-          this.push(compressed);
-          return cb();
-        }
-      });
-
-      reader
-        .pipe(compressor)
-        .on('error', err => reject(err))
-        .pipe(writer)
-        .on('close', () => resolve(OUT_FILE));
+    const compressed = brCompress(content, {
+      mode,
+      quality,
+      lgwin: windowSize
     });
+
+    await writeFile(OUT_FILE, compressed);
+    return OUT_FILE;
   };
+}
+
+/**
+ *
+ * @param {string} filePath path to file to decompress
+ * @return {Promise} out-file
+ */
+async function decompressor(filePath: string) {
+  const OUT_FILE = filePath.substr(0, filePath.lastIndexOf('.'));
+  const content = await readFile(filePath);
+  const compressed = brDecompress(content);
+  await writeFile(OUT_FILE, compressed);
+  return OUT_FILE;
 }
 
 interface IGetCompressor {
   mode?: number;
   quality?: number;
   windowSize?: number;
+}
+
+/**
+ * Promisified read
+ * @param {string} path path to file
+ * @return {Promise} resolves to read data as Buffer
+ */
+function readFile(path: string): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    readFileCb(path, (err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(data);
+    });
+  });
+}
+
+/**
+ * Promisified write
+ * @param {string} path path to file
+ * @param {Buffer} content file content
+ * @return {Promise} resolves to read data as Buffer
+ */
+function writeFile(path: string, content: Buffer) {
+  return new Promise((resolve, reject) => {
+    writeFileCb(path, content, err => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve();
+    });
+  });
 }

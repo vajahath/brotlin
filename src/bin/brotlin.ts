@@ -4,7 +4,7 @@ import '../update-notifier';
 
 import program from 'commander';
 import convertHrtime from 'convert-hrtime';
-import { compression } from '../index';
+import { compression, decompression } from '../index';
 
 const version = require('../../package.json').version;
 program.version(version);
@@ -45,6 +45,29 @@ program
     });
     console.log(
       `\n[brotlin] Processed ${compressedFiles.length} files in ${Math.round(
+        (convertHrtime(process.hrtime(start)).seconds + Number.EPSILON) * 100
+      ) / 100} secs`
+    );
+  });
+
+program
+  .command('decompress [file]')
+  .description(
+    'Creates a decompressed file in the same location. Argument can be relative/absolute/glob paths [default:*]. Check https://www.npmjs.com/package/brotli to know more about the following options'
+  )
+  .option(
+    '-p, --parallel <count>',
+    `Processes <count> number of files in parallel. [default: 1]`,
+    val => +val
+  )
+  .action(async (file, cmdObj) => {
+    const start = process.hrtime();
+    const decompressedFiles = await decompression({
+      path: file || '*',
+      parallelJobCount: cmdObj.parallel
+    });
+    console.log(
+      `\n[brotlin] Processed ${decompressedFiles.length} files in ${Math.round(
         (convertHrtime(process.hrtime(start)).seconds + Number.EPSILON) * 100
       ) / 100} secs`
     );
