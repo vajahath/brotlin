@@ -27,7 +27,7 @@ Type definitions are bundled with this package.
 cd my-dir
 
 # all files matching * glob pattern
-brotlin compress *
+brotlin compress "*"
 
 # same as above (all files matching *)
 brotlin compress
