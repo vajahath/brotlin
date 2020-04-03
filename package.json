@@ -1,6 +1,6 @@
 {
   "name": "brotlin",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A handy CLI/API for Brotli compression",
   "main": "dist/index.js",
   "files": [
@@ -31,7 +31,7 @@
     "url": "git+https://github.com/vajahath/brotlin.git"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "author": "Vajahath Ahmed <vajuoff.1@gmail.com>",
   "license": "MIT",
@@ -41,7 +41,7 @@
   "homepage": "https://github.com/vajahath/brotlin#readme",
   "devDependencies": {
     "@types/jest": "^25.1.0",
-    "@types/node": "^13.7.4",
+    "@types/node": "^13.7.6",
     "@types/update-notifier": "^4.1.0",
     "@types/yeoman-generator": "^3.1.4",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
