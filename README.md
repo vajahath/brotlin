@@ -1,4 +1,6 @@
-# brotlin
+> :tanabata_tree: Brotlin 2 public release planned on 2020 April end.
+
+# brotlin 2 (Preview)
 
 A handy CLI/API for [Brotli](https://github.com/google/brotli) compression. Helps you to convert files to Brotli(`.br`) format.
 
