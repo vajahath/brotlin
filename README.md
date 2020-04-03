@@ -1,8 +1,8 @@
 # brotlin
 
-A handy CLI/API for [Brotli](https://github.com/google/brotli) compression based on [npm/brotli](https://www.npmjs.com/package/brotli). Helps you to convert files to Brotli(`.br`) format.
+A handy CLI/API for [Brotli](https://github.com/google/brotli) compression. Helps you to convert files to Brotli(`.br`) format.
 
-![](https://github.com/vajahath/brotlin/workflows/Build/badge.svg) [![](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+![](https://github.com/vajahath/brotlin/workflows/Build/badge.svg)
 
 ## Install
 
@@ -83,8 +83,6 @@ Options:
   -h, --help              output usage information
 ```
 
-For knowing more about these options, see [npm/brotli](https://www.npmjs.com/package/brotli).
-
 For decompress, see `brotlin decompress --help`
 
 ### One more example
@@ -95,7 +93,9 @@ cd dist # moved to dist
 brotlin compress **/* # compress all files in the directory
 ```
 
-## APIs
+## APIs [![](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+
+Just incase you need it.
 
 ```ts
 import { compression, decompression } from 'brotlin';
